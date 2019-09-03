@@ -13,10 +13,12 @@ class PokeContainer extends React.Component {
             pokemons: [],
             object:[],
             URL: 'https://pokeapi.co/api/v2/pokemon',
+            favsPoke: [],
             
         };
         this.nextPage = this.nextPage.bind(this);
         this.previusPage = this.previusPage.bind(this);
+        // this.handleAddFavorite = this.handleAddFavorite.bind(this);
     }
 
     componentDidMount(){
@@ -36,6 +38,13 @@ class PokeContainer extends React.Component {
         });
         this.getPokemons();
     }
+
+    // handleAddFavorite(poke){
+    //     this.setState({
+    //       favsPoke:[...this.state.favsPoke, poke]
+    //     });
+    //     console.log(this.state.favsPoke);
+    //   }
 
     async getPokemons() {
         await axios.get(this.state.URL)
@@ -82,7 +91,7 @@ class PokeContainer extends React.Component {
                                 let i = pokemon.url.split('/')[pokemon.url.split('/').length - 2];
                                 return (
                                     <Col xs={3} key={index} >
-                                        <PokeList name={pokemon.name} image={`${urlImage}${i}.png?raw=true`} url={i} />
+                                        <PokeList name={pokemon.name} image={`${urlImage}${i}.png?raw=true`} url={i} addPokeFav={this.handleAddFavorite}/>
                                     </Col>
                                 );
                             })
